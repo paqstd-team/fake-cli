@@ -28,14 +28,17 @@ func (c *Cache) Get(key string) (interface{}, bool) {
 		return nil, false
 	}
 
-	// Increment the number of requests for this key
-	c.requests[key]++
+	// By default maxSize is 0. But -1 is infinity
+	if c.maxSize != -1 {
+		// Increment the number of requests for this key
+		c.requests[key]++
 
-	// If we have exceeded the maximum number of requests, remove the key
-	if c.requests[key] > c.maxSize {
-		delete(c.data, key)
-		delete(c.requests, key)
-		return nil, false
+		// If we have exceeded the maximum number of requests, remove the key
+		if c.requests[key] > c.maxSize {
+			delete(c.data, key)
+			delete(c.requests, key)
+			return nil, false
+		}
 	}
 
 	return val, true
