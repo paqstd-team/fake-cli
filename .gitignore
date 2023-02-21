@@ -1,2 +1,5 @@
 # ignore config file
 *.fake
+
+# ignore build
+fake
