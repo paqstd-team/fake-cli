@@ -1,2 +1,2 @@
 # ignore config file
-fake.json
+*.fake

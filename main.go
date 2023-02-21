@@ -1,98 +1,41 @@
 package main
 
 import (
-	"encoding/json"
-	"fmt"
+	"flag"
+	"log"
+	"net/http"
+	"strconv"
 
 	"github.com/brianvoe/gofakeit/v6"
-	"github.com/gofiber/fiber/v2"
-	"github.com/spf13/cobra"
-	"github.com/spf13/viper"
+	"github.com/paqstd-team/fake-cli/handler"
 )
 
-// pagination
-const PER_PAGE int = 10
-
-func Field(field string) string {
-	switch field {
-	case "name":
-		return gofakeit.Name()
-	case "phrase":
-		return gofakeit.Phrase()
-	}
-
-	return "incorrected type"
-}
-
-func Generator(endpoint map[string]interface{}) any {
-	scheme := endpoint["scheme"].(map[string]interface{})
-
-	if endpoint["response"].(string) == "single" {
-		single := make(map[string]interface{})
-		for key, value := range scheme {
-			single[key] = Field(value.(string))
-		}
-
-		return single
-	} else {
-		var per_page int = PER_PAGE
-
-		if count := endpoint["count"]; count != nil {
-			per_page = int(count.(float64))
-		}
-
-		generated := make([]map[string]interface{}, per_page)
-		for i := 0; i < per_page; i++ {
-			single := make(map[string]interface{})
-			for key, value := range scheme {
-				single[key] = Field(value.(string))
-			}
-			generated[i] = single
-		}
-
-		return generated
-	}
-
-}
-
 func main() {
-	// set flags
-	var ConfigFile string
-	var Port int
+	// Seed the random number generator for reproducibility
+	gofakeit.Seed(0)
 
-	var rootCmd = &cobra.Command{
-		Use:   "fake",
-		Short: "Create fake api with auto-generated response.",
-		Long:  "Create server with fake response data. Using config file fakeconfig.json",
-		Run: func(cmd *cobra.Command, args []string) {
-			viper.SetConfigFile(ConfigFile)
-			viper.ReadInConfig()
+	// Define command-line flags
+	port := flag.Int("p", 8080, "port number")
+	configPath := flag.String("c", "", "path to config file")
+	flag.Parse()
 
-			// create server instance
-			server := fiber.New()
-
-			server.All("/*", func(c *fiber.Ctx) error {
-				// check current path
-				data := viper.Get(fmt.Sprintf("endpoints.%v", c.Params("*")))
-				if data == nil {
-					return c.SendStatus(404)
-				}
-
-				endpoint := data.(map[string]interface{})
-				resp, err := json.Marshal(Generator(endpoint))
-				if err != nil {
-					panic(err)
-				}
-
-				return c.SendString((string(resp)))
-			})
-
-			server.Listen(fmt.Sprintf(":%v", Port))
-		},
+	if *configPath == "" {
+		log.Fatal("config file path is required")
 	}
 
-	// run command with flags
-	rootCmd.Flags().StringVarP(&ConfigFile, "config", "c", "fake.json", "Config file for create server with schema & endpoints.")
-	rootCmd.Flags().IntVarP(&Port, "port", "p", 8765, "Running port.")
-	rootCmd.Execute()
+	config, err := handler.LoadConfigFromFile(*configPath)
+	if err != nil {
+		log.Fatalf("Error loading config: %v", err)
+	}
+
+	server := &http.Server{
+		Addr:    ":" + strconv.Itoa(*port),
+		Handler: handler.MakeHandler(config),
+	}
+
+	log.Printf("Starting server on %v", server.Addr)
+	err = server.ListenAndServe()
+	if err != nil {
+		log.Fatalf("Error starting server: %v", err)
+	}
 }
