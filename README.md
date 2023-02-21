@@ -114,6 +114,8 @@ You can also add new types of fake data by modifying the switch statement in the
 
 If you find a bug or would like to suggest a new feature, you can create an issue on the GitHub repository for this project. If you'd like to contribute code, you can fork the repository and submit a pull request with your changes.
 
+For create new release use git tags. Create new tag `git tag vX.Y.Z` and push it `git push origin vX.Y.Z`.
+
 ## License
 
 This project is licensed under the MIT License. See the LICENSE file for more information.
