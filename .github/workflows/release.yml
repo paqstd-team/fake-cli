@@ -11,14 +11,21 @@ jobs:
     steps:
       - name: Checkout code
         uses: actions/checkout@v2
+
       - name: Setup Go
         uses: actions/setup-go@v2
         with:
-          go-version: '1.19'
+          go-version: 1.19
+
       - name: Get dependencies
         run: go mod download
+
+      - name: Testing code
+        run: go test ./...
+
       - name: Build
         run: go build -o fake
+
       - name: Create release
         id: create_release
         uses: softprops/action-gh-release@v1
