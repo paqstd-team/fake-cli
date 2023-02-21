@@ -1,5 +1,5 @@
 # ignore config file
-*.fake
+*.json
 
 # ignore build
 fake

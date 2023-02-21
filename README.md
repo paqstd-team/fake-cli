@@ -23,7 +23,7 @@ make run    # runs the program
 
 ## Usage
 
-To generate fake API responses, you must create a configuration file in JSON format that defines the endpoints and fields for each endpoint. We recommended use `.fake` type for files. Here's an example configuration file `config.fake`:
+To generate fake API responses, you must create a configuration file in JSON format that defines the endpoints and fields for each endpoint. We recommended use `.json` type for files. Here's an example configuration file `config.json`:
 
 ```
 {
