@@ -51,6 +51,50 @@ To generate fake API responses, you must create a configuration file in JSON for
 ```
 This configuration file defines two endpoints: /users and /products. The /users endpoint returns a list of users with pagination (by default page = 1 and per_page = 10), while the /products endpoint returns a single product. Cache is not required, but if existed it is count of request for caching.
 
+List of types:
+<div style="display: flex; justify-content: space-between;">
+  <div>
+    <li>uuid</li>
+    <li>city</li>
+    <li>state</li>
+    <li>country</li>
+    <li>latitude</li>
+    <li>longitude</li>
+    <li>name</li>
+    <li>name_prefix</li>
+    <li>name_suffix</li>
+  </div>
+  <div>
+    <li>first_name</li>
+    <li>last_name</li>
+    <li>gender</li>
+    <li>ssn</li>
+    <li>hobby</li>
+    <li>email</li>
+    <li>phone</li>
+    <li>username</li>
+    <li>password</li>
+    <li>paragraph</li>
+    <li>sentence</li>
+    <li>phrase</li>
+    <li>quote</li>
+  </div>
+  <div>
+    <li>word</li>
+    <li>date</li>
+    <li>second</li>
+    <li>minute</li>
+    <li>hour</li>
+    <li>month</li>
+    <li>day</li>
+    <li>year</li>
+    <li>url</li>
+    <li>domain</li>
+    <li>int</li>
+    <li>float</li>
+  </div>
+</div>
+
 To generate fake API responses using this configuration file, you can run the fake command:
 
 `fake -c path/to/config.json`
