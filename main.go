@@ -7,6 +7,7 @@ import (
 	"strconv"
 
 	"github.com/brianvoe/gofakeit/v6"
+	"github.com/paqstd-team/fake-cli/config"
 	"github.com/paqstd-team/fake-cli/handler"
 )
 
@@ -23,7 +24,7 @@ func main() {
 		log.Fatal("config file path is required")
 	}
 
-	config, err := handler.LoadConfigFromFile(*configPath)
+	config, err := config.LoadConfigFromFile(*configPath)
 	if err != nil {
 		log.Fatalf("Error loading config: %v", err)
 	}

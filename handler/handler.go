@@ -4,23 +4,34 @@ import (
 	"encoding/json"
 	"fmt"
 	"net/http"
+
+	"github.com/paqstd-team/fake-cli/cache"
+	"github.com/paqstd-team/fake-cli/config"
 )
 
-func MakeHandler(config Config) http.Handler {
+func MakeHandler(config config.Config) http.Handler {
 	mux := http.NewServeMux()
+	cache := cache.NewCache(config.Cache)
 
 	for _, endpoint := range config.Endpoints {
-		handlerFunc := makeHandlerFunc(endpoint.Fields, endpoint.Response)
+		handlerFunc := makeHandlerFunc(endpoint.Fields, endpoint.Response, cache)
 		mux.HandleFunc(endpoint.URL, handlerFunc)
 	}
 
 	return mux
 }
 
-func makeHandlerFunc(fields map[string]string, responseType string) http.HandlerFunc {
+func makeHandlerFunc(fields map[string]string, responseType string, cache *cache.Cache) http.HandlerFunc {
 	return func(w http.ResponseWriter, r *http.Request) {
-		var data interface{}
+		cacheKey := r.URL.Path + r.URL.RawQuery
+		cacheValue, cacheHit := cache.Get(cacheKey)
+		if cacheHit {
+			w.Header().Set("Content-Type", "application/json")
+			w.Write([]byte(cacheValue.(string)))
+			return
+		}
 
+		var data interface{}
 		if responseType == "list" {
 			page, perPage := getPaginationParams(r)
 			data = generateDataList(fields, page, perPage)
@@ -34,6 +45,7 @@ func makeHandlerFunc(fields map[string]string, responseType string) http.Handler
 			return
 		}
 
+		cache.Set(cacheKey, string(jsonData))
 		w.Header().Set("Content-Type", "application/json")
 		w.Write(jsonData)
 	}

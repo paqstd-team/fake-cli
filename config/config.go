@@ -1,4 +1,4 @@
-package handler
+package config
 
 import (
 	"encoding/json"
@@ -13,6 +13,7 @@ type Endpoint struct {
 
 type Config struct {
 	Endpoints []Endpoint `json:"endpoints"`
+	Cache     int        `json:"cache"`
 }
 
 func LoadConfigFromFile(path string) (Config, error) {

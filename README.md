@@ -27,6 +27,7 @@ To generate fake API responses, you must create a configuration file in JSON for
 
 ```
 {
+  "cache": 5,
   "endpoints": [
     {
       "url": "/users",
@@ -48,7 +49,7 @@ To generate fake API responses, you must create a configuration file in JSON for
   ]
 }
 ```
-This configuration file defines two endpoints: /users and /products. The /users endpoint returns a list of users with pagination (by default page = 1 and per_page = 10), while the /products endpoint returns a single product.
+This configuration file defines two endpoints: /users and /products. The /users endpoint returns a list of users with pagination (by default page = 1 and per_page = 10), while the /products endpoint returns a single product. Cache is not required, but if existed it is count of request for caching.
 
 To generate fake API responses using this configuration file, you can run the fake command:
 
