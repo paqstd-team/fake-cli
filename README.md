@@ -8,7 +8,7 @@ To install the fakeapi command-line tool, you must have Go installed on your sys
 
 Once you have Go installed, you can install the fakeapi tool by running the following command:
 
-`go install github.com/paqstd-team/fake-cli`
+`go install -v github.com/paqstd-team/fake-cli@latest`
 
 ## Build
 Use commands:
@@ -98,12 +98,12 @@ List of types:
 
 To generate fake API responses using this configuration file, you can run the fake command:
 
-`fake -c path/to/config.json`
+`fake-cli -c path/to/config.json`
 Replace path/to/config.json with the path to your configuration file.
 
 By default, the fake command starts a web server on port 8000 that responds to requests for the endpoints defined in your configuration file. You can specify a different port by adding the --p flag followed by the desired port number:
 
-`fake -c path/to/config.json -p 8080`
+`fake-cli -c path/to/config.json -p 8080`
 
 ## Customization
 

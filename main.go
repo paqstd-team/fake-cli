@@ -17,7 +17,7 @@ func main() {
 
 	// Define command-line flags
 	port := flag.Int("p", 8080, "port number")
-	configPath := flag.String("c", "config.fake", "path to config file")
+	configPath := flag.String("c", "config.json", "path to config file")
 	flag.Parse()
 
 	config, err := config.LoadConfigFromFile(*configPath)

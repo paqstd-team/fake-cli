@@ -2,4 +2,4 @@
 *.json
 
 # ignore build
-fake
+fake-cli

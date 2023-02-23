@@ -1,5 +1,5 @@
 # Define the name of the binary
-BINARY_NAME=fake
+BINARY_NAME=fake-cli
 
 # Define the path to the main source file
 MAIN_PATH=./main.go
