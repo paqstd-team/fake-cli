@@ -30,10 +30,10 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
           tag_name: ${{github.ref_name}}
-          release_name: Release ${{github.ref_name}}
+          release_name: Release ${{ github.ref_name }}
           draft: false
           files: |
             ./fake
 
       - name: Publish
-        run: GOPROXY=proxy.golang.org go list -m github.com/${github.event.repository.owner}}/${{github.event.repository.name}}@${{github.ref_name}}
+        run: GOPROXY=proxy.golang.org go list -m github.com/${{ github.event.repository.owner }}/${{ github.event.repository.name }}@${{ github.ref_name }}
