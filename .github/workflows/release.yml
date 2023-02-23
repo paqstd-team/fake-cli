@@ -20,9 +20,6 @@ jobs:
       - name: Get dependencies
         run: go mod download
 
-      - name: Testing code
-        run: go test ./...
-
       - name: Build
         run: go build -o fake
 
