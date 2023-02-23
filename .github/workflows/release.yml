@@ -36,4 +36,4 @@ jobs:
             ./fake
 
       - name: Publish
-        run: GOPROXY=proxy.golang.org go list -m github.com/${{ github.event.repository.owner }}/${{ github.event.repository.name }}@${{ github.ref_name }}
+        run: GOPROXY=proxy.golang.org go list -m github.com/${{ github.repository_owner }}/${{ github.repository }}@${{ github.ref_name }}
