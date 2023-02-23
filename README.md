@@ -8,8 +8,7 @@ To install the fakeapi command-line tool, you must have Go installed on your sys
 
 Once you have Go installed, you can install the fakeapi tool by running the following command:
 
-`go install github.com/yourusername/fakeapi/cmd/fake`
-Replace yourusername with your GitHub username or the name of your fork of this project.
+`go install github.com/paqstd-team/fake-cli`
 
 ## Build
 Use commands:
