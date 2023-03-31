@@ -48,7 +48,7 @@ To generate fake API responses, you must create a configuration file in JSON for
       }
     },
     {
-      "url": "/products/id",
+      "url": "/products/{id}",
       "fields": {
         "id": "uuid",
         "tags": [{

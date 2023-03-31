@@ -5,12 +5,13 @@ import (
 	"fmt"
 	"net/http"
 
+	"github.com/gorilla/mux"
 	"github.com/paqstd-team/fake-cli/cache"
 	"github.com/paqstd-team/fake-cli/config"
 )
 
 func MakeHandler(config config.Config) http.Handler {
-	mux := http.NewServeMux()
+	mux := mux.NewRouter()
 	cache := cache.NewCache(config.Cache)
 
 	for _, endpoint := range config.Endpoints {
