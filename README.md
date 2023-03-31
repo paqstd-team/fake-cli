@@ -44,6 +44,28 @@ To generate fake API responses, you must create a configuration file in JSON for
         "name": "word",
         "price": "price"
       }
+    },
+    {
+      "url": "/products/id",
+      "fields": {
+        "id": "uuid",
+        "tags": [{
+          "id": "uuid",
+          "name": "name"
+        }],
+        "details": {
+          "about": {
+            "author": "name",
+            "customValue": "my-custom-value"
+          }
+        }
+      }
+    },
+    {
+      "url": "/list",
+      "fields": {
+        "names": ["name", "name", "name"]
+      }
     }
   ]
 }
@@ -51,6 +73,8 @@ To generate fake API responses, you must create a configuration file in JSON for
 This configuration file defines two endpoints: /users and /products. The /users endpoint returns a list of users with pagination (by default page = 1 and per_page = 10), while the /products endpoint returns a single product.
 
 Cache is not required, but if existed it is count of request for caching. By default cache settings is 0 and every request will generate new data. If you specify -1, this will turn off further generation and all data will be used from the cache.
+
+You can also specify the type Array, Object as a value. Each of these types can have nested values. 
 
 List of types:
 <div>

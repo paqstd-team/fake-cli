@@ -6,98 +6,129 @@ import (
 	"github.com/brianvoe/gofakeit/v6"
 )
 
-func generateData(fields map[string]string) map[string]interface{} {
-	data := make(map[string]interface{})
-	for key, value := range fields {
-		switch value {
-		// id
-		case "uuid":
-			data[key] = gofakeit.UUID()
-		// geography
-		case "city":
-			data[key] = gofakeit.City()
-		case "state":
-			data[key] = gofakeit.State()
-		case "country":
-			data[key] = gofakeit.Country()
-		case "latitude":
-			data[key] = gofakeit.Latitude()
-		case "longitude":
-			data[key] = gofakeit.Longitude()
-		// person
-		case "name":
-			data[key] = gofakeit.Name()
-		case "name_prefix":
-			data[key] = gofakeit.NamePrefix()
-		case "name_suffix":
-			data[key] = gofakeit.NameSuffix()
-		case "first_name":
-			data[key] = gofakeit.FirstName()
-		case "last_name":
-			data[key] = gofakeit.LastName()
-		case "gender":
-			data[key] = gofakeit.Gender()
-		case "ssn":
-			data[key] = gofakeit.SSN()
-		case "hobby":
-			data[key] = gofakeit.Hobby()
-		case "email":
-			data[key] = gofakeit.Email()
-		case "phone":
-			data[key] = gofakeit.Phone()
-		case "username":
-			data[key] = gofakeit.Username()
-		case "password":
-			data[key] = gofakeit.Password(true, true, true, true, true, 8)
-		// text
-		case "paragraph":
-			data[key] = gofakeit.Paragraph(5, 10, 3, "\n")
-		case "sentence":
-			data[key] = gofakeit.Sentence(5)
-		case "phrase":
-			data[key] = gofakeit.Phrase()
-		case "quote":
-			data[key] = gofakeit.Quote()
-		case "word":
-			data[key] = gofakeit.Word()
-		// data
-		case "date":
-			data[key] = gofakeit.Date()
-		case "second":
-			data[key] = gofakeit.Second()
-		case "minute":
-			data[key] = gofakeit.Minute()
-		case "hour":
-			data[key] = gofakeit.Hour()
-		case "month":
-			data[key] = gofakeit.Month()
-		case "day":
-			data[key] = gofakeit.Day()
-		case "year":
-			data[key] = gofakeit.Year()
-		// internet
-		case "url":
-			data[key] = gofakeit.URL()
-		case "domain":
-			data[key] = fmt.Sprintf("%s.%s", gofakeit.DomainName(), gofakeit.DomainSuffix())
-		// numbers
-		case "int":
-			data[key] = gofakeit.Int32()
-		case "float":
-			data[key] = gofakeit.Float32()
-		default:
-			data[key] = fmt.Sprintf("Unsupported field type: %s", value)
-		}
+func generateField(value string) interface{} {
+	switch value {
+	// id
+	case "uuid":
+		return gofakeit.UUID()
+	// geography
+	case "city":
+		return gofakeit.City()
+	case "state":
+		return gofakeit.State()
+	case "country":
+		return gofakeit.Country()
+	case "latitude":
+		return gofakeit.Latitude()
+	case "longitude":
+		return gofakeit.Longitude()
+	// person
+	case "name":
+		return gofakeit.Name()
+	case "name_prefix":
+		return gofakeit.NamePrefix()
+	case "name_suffix":
+		return gofakeit.NameSuffix()
+	case "first_name":
+		return gofakeit.FirstName()
+	case "last_name":
+		return gofakeit.LastName()
+	case "gender":
+		return gofakeit.Gender()
+	case "ssn":
+		return gofakeit.SSN()
+	case "hobby":
+		return gofakeit.Hobby()
+	case "email":
+		return gofakeit.Email()
+	case "phone":
+		return gofakeit.Phone()
+	case "username":
+		return gofakeit.Username()
+	case "password":
+		return gofakeit.Password(true, true, true, true, true, 8)
+	// text
+	case "paragraph":
+		return gofakeit.Paragraph(5, 10, 3, "\n")
+	case "sentence":
+		return gofakeit.Sentence(5)
+	case "phrase":
+		return gofakeit.Phrase()
+	case "quote":
+		return gofakeit.Quote()
+	case "word":
+		return gofakeit.Word()
+	// data
+	case "date":
+		return gofakeit.Date()
+	case "second":
+		return gofakeit.Second()
+	case "minute":
+		return gofakeit.Minute()
+	case "hour":
+		return gofakeit.Hour()
+	case "month":
+		return gofakeit.Month()
+	case "day":
+		return gofakeit.Day()
+	case "year":
+		return gofakeit.Year()
+	// internet
+	case "url":
+		return gofakeit.URL()
+	case "domain":
+		return fmt.Sprintf("%s.%s", gofakeit.DomainName(), gofakeit.DomainSuffix())
+	// numbers
+	case "int":
+		return gofakeit.Int32()
+	case "float":
+		return gofakeit.Float32()
+	default:
+		return value
 	}
-	return data
 }
 
-func generateDataList(fields map[string]string, page int, perPage int) []map[string]interface{} {
+func generateData(fields interface{}) interface{} {
+	switch f := fields.(type) {
+	case map[string]string:
+		data := make(map[string]interface{})
+		for key, value := range f {
+			data[key] = generateField(value)
+		}
+		return data
+	case map[string]interface{}:
+		data := make(map[string]interface{})
+		for key, value := range f {
+			switch v := value.(type) {
+			case string:
+				data[key] = generateField(v)
+			default:
+				data[key] = generateData(value)
+			}
+		}
+		return data
+	case []interface{}:
+		data := make([]interface{}, len(f))
+		for i, item := range f {
+			switch v := item.(type) {
+			case string:
+				data[i] = generateField(v)
+			default:
+				data[i] = generateData(item)
+			}
+		}
+		return data
+	default:
+		return fmt.Sprintf("Unsupported type: %T", fields)
+	}
+}
+
+func generateDataList(fields interface{}, page int, perPage int) []interface{} {
 	if page < 1 {
-		return make([]map[string]interface{}, 0)
+		return make([]interface{}, 0)
 	}
 
-	dataList := make([]map[string]interface{}, perPage)
+	dataList := make([]interface{}, perPage)
 	for i := 0; i < perPage; i++ {
 		dataList[i] = generateData(fields)
 	}

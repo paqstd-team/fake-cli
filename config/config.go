@@ -6,9 +6,9 @@ import (
 )
 
 type Endpoint struct {
-	URL      string            `json:"url"`
-	Fields   map[string]string `json:"fields"`
-	Response string            `json:"response"`
+	URL      string `json:"url"`
+	Fields   any    `json:"fields"`
+	Response string `json:"response"`
 }
 
 type Config struct {

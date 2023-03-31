@@ -21,7 +21,7 @@ func MakeHandler(config config.Config) http.Handler {
 	return mux
 }
 
-func makeHandlerFunc(fields map[string]string, responseType string, cache *cache.Cache) http.HandlerFunc {
+func makeHandlerFunc(fields any, responseType string, cache *cache.Cache) http.HandlerFunc {
 	return func(w http.ResponseWriter, r *http.Request) {
 		cacheKey := r.URL.Path + r.URL.RawQuery
 		cacheValue, cacheHit := cache.Get(cacheKey)
