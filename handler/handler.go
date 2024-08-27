@@ -24,10 +24,11 @@ func MakeHandler(config config.Config) http.Handler {
 
 func makeHandlerFunc(fields any, responseType string, cache *cache.Cache) http.HandlerFunc {
 	return func(w http.ResponseWriter, r *http.Request) {
+		w.Header().Set("Content-Type", "application/json")
+
 		cacheKey := r.URL.Path + r.URL.RawQuery
 		cacheValue, cacheHit := cache.Get(cacheKey)
 		if cacheHit {
-			w.Header().Set("Content-Type", "application/json")
 			w.Write([]byte(cacheValue.(string)))
 			return
 		}
@@ -47,7 +48,6 @@ func makeHandlerFunc(fields any, responseType string, cache *cache.Cache) http.H
 		}
 
 		cache.Set(cacheKey, string(jsonData))
-		w.Header().Set("Content-Type", "application/json")
 		w.Write(jsonData)
 	}
 }

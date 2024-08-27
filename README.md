@@ -1,4 +1,4 @@
-# Fake API Generator
+# Fake API (CLI)
 
 This is a command-line tool for generating fake API responses based on a JSON configuration file. The tool is written in Go and uses the gofakeit library to generate random data.
 
@@ -7,12 +7,13 @@ This is a command-line tool for generating fake API responses based on a JSON co
 To install the fakeapi command-line tool, you must have Go installed on your system. You can download and install Go from the official Go website.
 
 Once you have Go installed, you can install the fakeapi tool by running the following command:
-
 ```bash
 go install -v github.com/paqstd-team/fake-cli@latest
 ```
 
-## Build
+Also you can install the binary by downloading it from [one of the latest releases](https://github.com/paqstd-team/fake-cli/releases).
+
+## Local development
 Use commands:
 
 ```bash
@@ -111,6 +112,7 @@ List of types:
 - year
 - url
 - domain
+- ip
 - int
 - float
 
@@ -150,8 +152,6 @@ docker run --name fake-cli -it -v ${PWD}/config.json:/app/config.json -p 8080:80
 ### Docker Compose
 Here is an example of usage `fake-cli` with docker-compose and other containers:  
 ```yml
-version: '3'
-
 services:
   # ...other services
   fake-cli:
@@ -173,8 +173,6 @@ services:
 ## Contributing
 
 If you find a bug or would like to suggest a new feature, you can create an issue on the GitHub repository for this project. If you'd like to contribute code, you can fork the repository and submit a pull request with your changes.
-
-For create new release use git tags. Create new tag `git tag vX.Y.Z` and push it `git push origin vX.Y.Z`.
 
 ## License
 

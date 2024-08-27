@@ -78,6 +78,8 @@ func generateField(value string) interface{} {
 		return gofakeit.URL()
 	case "domain":
 		return fmt.Sprintf("%s.%s", gofakeit.DomainName(), gofakeit.DomainSuffix())
+	case "ip":
+		return gofakeit.IPv4Address()
 	// numbers
 	case "int":
 		return gofakeit.Int32()

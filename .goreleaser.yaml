@@ -1,0 +1,29 @@
+version: 2
+
+builds:
+  - id: fake-cli
+    binary: fake
+    env:
+      - CGO_ENABLED=0
+    goos:
+      - linux
+      - windows
+      - darwin
+    goarch:
+      - amd64
+      - arm
+      - arm64
+
+sboms:
+  - artifacts: package
+
+release:
+  github:
+    owner: paqstd-team
+    name: fake-cli
+  draft: true
+  skip_upload: false
+  extra_files:
+    - glob: ./LICENSE
+
+report_sizes: true
