@@ -23,9 +23,7 @@ run:
 default: build
 
 test:
-	TESTING=1 go test ./tests -covermode=atomic -coverpkg=./app,./cache,./config,./handler -coverprofile=coverage.out
+	TESTING=1 go test ./... -covermode=atomic -coverpkg=./app,./cache,./config,./handler -coverprofile=coverage.out
 	@echo "\nCoverage by function/package:" && go tool cover -func=coverage.out | sed 's/^/  /'
-	@echo "\nUncovered code blocks (file:line1.col-line2.col [statements]):"
-	@awk 'NR>1 && $$3==0 {print "  " $$1 " [" $$2 "]"}' coverage.out | sort
-	@echo "Enforcing 100% coverage"
-	@go tool cover -func=coverage.out | awk '/total:/ { if ($$3 != "100.0%") { print; exit 1 } }'
+	@echo "\nEnforcing 100% coverage"
+	@go tool cover -func=coverage.out | awk '/total:/ { if ($$3 != "100.0%") { print "ERROR: Coverage is not 100%"; exit 1 } }'

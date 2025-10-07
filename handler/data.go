@@ -126,7 +126,7 @@ func generateData(fields interface{}) interface{} {
 }
 
 func generateDataList(fields interface{}, page int, perPage int) []interface{} {
-	if page < 1 {
+	if page < 1 || perPage < 1 {
 		return make([]interface{}, 0)
 	}
 

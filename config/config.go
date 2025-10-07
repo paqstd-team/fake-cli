@@ -6,14 +6,16 @@ import (
 )
 
 type Endpoint struct {
-	URL      string `json:"url"`
-	Fields   any    `json:"fields"`
-	Response string `json:"response"`
+	URL      string      `json:"url"`
+	Type     string      `json:"type"`
+	Response interface{} `json:"response"`
+	Status   int         `json:"status"`
+	Payload  interface{} `json:"payload"`
+	Cache    *int        `json:"cache"`
 }
 
 type Config struct {
 	Endpoints []Endpoint `json:"endpoints"`
-	Cache     int        `json:"cache"`
 }
 
 func LoadConfigFromFile(path string) (Config, error) {
