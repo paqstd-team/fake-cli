@@ -196,41 +196,259 @@ func TestData_AllFieldTypes(t *testing.T) {
 			{
 				URL: "/api/all-fields",
 				Response: map[string]any{
-					"uuid":          "uuid",
+					// Identifiers
+					"uuid": "uuid",
+					"ssn":  "ssn",
+
+					// Geographic
 					"city":          "city",
 					"state":         "state",
 					"country":       "country",
 					"latitude":      "latitude",
 					"longitude":     "longitude",
-					"name":          "name",
-					"name_prefix":   "name_prefix",
-					"name_suffix":   "name_suffix",
-					"first_name":    "first_name",
-					"last_name":     "last_name",
-					"gender":        "gender",
-					"ssn":           "ssn",
-					"hobby":         "hobby",
-					"email":         "email",
-					"phone":         "phone",
-					"username":      "username",
-					"password":      "password",
-					"paragraph":     "paragraph",
-					"sentence":      "sentence",
-					"phrase":        "phrase",
-					"quote":         "quote",
-					"word":          "word",
-					"date":          "date",
-					"second":        "second",
-					"minute":        "minute",
-					"hour":          "hour",
-					"month":         "month",
-					"day":           "day",
-					"year":          "year",
-					"url":           "url",
-					"domain":        "domain",
-					"ip":            "ip",
+					"address":       "address",
+					"street":        "street",
+					"zip":           "zip",
+					"postal_code":   "postal_code",
+					"timezone":      "timezone",
+					"timezone_abbr": "timezone_abbr",
+					"timezone_full": "timezone_full",
+
+					// Personal
+					"name":        "name",
+					"name_prefix": "name_prefix",
+					"name_suffix": "name_suffix",
+					"first_name":  "first_name",
+					"last_name":   "last_name",
+					"gender":      "gender",
+					"hobby":       "hobby",
+
+					// Contact
+					"email": "email",
+					"phone": "phone",
+
+					// Authentication
+					"username": "username",
+					"password": "password",
+
+					// Text Content
+					"paragraph":             "paragraph",
+					"sentence":              "sentence",
+					"phrase":                "phrase",
+					"quote":                 "quote",
+					"word":                  "word",
+					"blurb":                 "blurb",
+					"comment":               "comment",
+					"question":              "question",
+					"interjection":          "interjection",
+					"connective":            "connective",
+					"buzzword":              "buzzword",
+					"hipster_word":          "hipster_word",
+					"hipster_sentence":      "hipster_sentence",
+					"hipster_paragraph":     "hipster_paragraph",
+					"lorem_ipsum_word":      "lorem_ipsum_word",
+					"lorem_ipsum_sentence":  "lorem_ipsum_sentence",
+					"lorem_ipsum_paragraph": "lorem_ipsum_paragraph",
+
+					// Time & Date
+					"date":         "date",
+					"datetime":     "datetime",
+					"time":         "time",
+					"second":       "second",
+					"minute":       "minute",
+					"hour":         "hour",
+					"month":        "month",
+					"day":          "day",
+					"year":         "year",
+					"weekday":      "weekday",
+					"month_string": "month_string",
+
+					// Web & Network
+					"url":                "url",
+					"domain":             "domain",
+					"domain_name":        "domain_name",
+					"domain_suffix":      "domain_suffix",
+					"ip":                 "ip",
+					"ipv4":               "ipv4",
+					"ipv6":               "ipv6",
+					"mac_address":        "mac_address",
+					"http_method":        "http_method",
+					"http_status_code":   "http_status_code",
+					"http_status_simple": "http_status_simple",
+					"user_agent":         "user_agent",
+					"chrome_user_agent":  "chrome_user_agent",
+					"firefox_user_agent": "firefox_user_agent",
+					"safari_user_agent":  "safari_user_agent",
+					"opera_user_agent":   "opera_user_agent",
+
+					// Numbers
 					"int":           "int",
+					"int8":          "int8",
+					"int16":         "int16",
+					"int32":         "int32",
+					"int64":         "int64",
+					"uint8":         "uint8",
+					"uint16":        "uint16",
+					"uint32":        "uint32",
+					"uint64":        "uint64",
 					"float":         "float",
+					"float32":       "float32",
+					"float64":       "float64",
+					"bool":          "bool",
+					"number":        "number",
+					"int_n":         "int_n",
+					"uint_n":        "uint_n",
+					"float32_range": "float32_range",
+					"float64_range": "float64_range",
+					"digit":         "digit",
+					"digit_n":       "digit_n",
+					"letter":        "letter",
+					"letter_n":      "letter_n",
+					"vowel":         "vowel",
+
+					// Financial
+					"price":            "price",
+					"currency":         "currency",
+					"currency_long":    "currency_long",
+					"currency_code":    "currency_code",
+					"credit_card":      "credit_card",
+					"credit_card_cvv":  "credit_card_cvv",
+					"credit_card_exp":  "credit_card_exp",
+					"credit_card_type": "credit_card_type",
+					"cvv":              "cvv",
+					"cvc":              "cvc",
+					"expiry":           "expiry",
+					"expiration":       "expiration",
+
+					// Banking
+					"bank_name":   "bank_name",
+					"bank_type":   "bank_type",
+					"ein":         "ein",
+					"ach_account": "ach_account",
+					"ach_routing": "ach_routing",
+
+					// Business
+					"company":        "company",
+					"job_title":      "job_title",
+					"job_descriptor": "job_descriptor",
+					"job_level":      "job_level",
+					"bs":             "bs",
+
+					// Products
+					"product_name":        "product_name",
+					"product_category":    "product_category",
+					"product_description": "product_description",
+					"product_feature":     "product_feature",
+					"product_material":    "product_material",
+					"product_upc":         "product_upc",
+					"product_audience":    "product_audience",
+					"product_benefit":     "product_benefit",
+					"product_dimension":   "product_dimension",
+					"product_isbn":        "product_isbn",
+					"product_suffix":      "product_suffix",
+					"product_use_case":    "product_use_case",
+					"brand":               "brand",
+					"color":               "color",
+					"hex_color":           "hex_color",
+					"rgb_color":           "rgb_color",
+					"safe_color":          "safe_color",
+
+					// Animals
+					"animal":      "animal",
+					"animal_type": "animal_type",
+					"bird":        "bird",
+					"cat":         "cat",
+					"dog":         "dog",
+					"farm_animal": "farm_animal",
+					"pet_name":    "pet_name",
+
+					// Food
+					"breakfast": "breakfast",
+					"lunch":     "lunch",
+					"dinner":    "dinner",
+					"snack":     "snack",
+					"dessert":   "dessert",
+					"drink":     "drink",
+					"fruit":     "fruit",
+					"vegetable": "vegetable",
+
+					// Beer
+					"beer_name":    "beer_name",
+					"beer_style":   "beer_style",
+					"beer_hop":     "beer_hop",
+					"beer_malt":    "beer_malt",
+					"beer_yeast":   "beer_yeast",
+					"beer_alcohol": "beer_alcohol",
+					"beer_blg":     "beer_blg",
+					"beer_ibu":     "beer_ibu",
+
+					// Cars
+					"car_maker":             "car_maker",
+					"car_model":             "car_model",
+					"car_type":              "car_type",
+					"car_fuel_type":         "car_fuel_type",
+					"car_transmission_type": "car_transmission_type",
+
+					// Entertainment
+					"movie_name":  "movie_name",
+					"movie_genre": "movie_genre",
+					"book_title":  "book_title",
+					"book_author": "book_author",
+					"book_genre":  "book_genre",
+
+					// Music
+					"song":        "song",
+					"song_artist": "song_artist",
+					"song_genre":  "song_genre",
+					"song_name":   "song_name",
+
+					// Technology
+					"app_name":    "app_name",
+					"app_author":  "app_author",
+					"app_version": "app_version",
+
+					// Cryptocurrency
+					"bitcoin_address":     "bitcoin_address",
+					"bitcoin_private_key": "bitcoin_private_key",
+
+					// Gaming
+					"gamertag": "gamertag",
+
+					// Minecraft
+					"minecraft_animal":           "minecraft_animal",
+					"minecraft_armor_part":       "minecraft_armor_part",
+					"minecraft_armor_tier":       "minecraft_armor_tier",
+					"minecraft_biome":            "minecraft_biome",
+					"minecraft_dye":              "minecraft_dye",
+					"minecraft_food":             "minecraft_food",
+					"minecraft_mob_boss":         "minecraft_mob_boss",
+					"minecraft_mob_hostile":      "minecraft_mob_hostile",
+					"minecraft_mob_neutral":      "minecraft_mob_neutral",
+					"minecraft_mob_passive":      "minecraft_mob_passive",
+					"minecraft_ore":              "minecraft_ore",
+					"minecraft_tool":             "minecraft_tool",
+					"minecraft_villager_job":     "minecraft_villager_job",
+					"minecraft_villager_level":   "minecraft_villager_level",
+					"minecraft_villager_station": "minecraft_villager_station",
+					"minecraft_weapon":           "minecraft_weapon",
+					"minecraft_weather":          "minecraft_weather",
+					"minecraft_wood":             "minecraft_wood",
+
+					// Miscellaneous
+					"emoji":             "emoji",
+					"emoji_alias":       "emoji_alias",
+					"emoji_category":    "emoji_category",
+					"emoji_description": "emoji_description",
+					"emoji_tag":         "emoji_tag",
+					"slogan":            "slogan",
+					"flip_coin":         "flip_coin",
+					"dice":              "dice",
+					"weight":            "weight",
+
+					// Units
+					"unit": "unit",
+
+					// Unknown field test
 					"unknown_field": "unknown_value",
 				},
 			},
@@ -252,12 +470,98 @@ func TestData_AllFieldTypes(t *testing.T) {
 	}
 
 	expectedFields := []string{
-		"uuid", "city", "state", "country", "latitude", "longitude",
-		"name", "name_prefix", "name_suffix", "first_name", "last_name",
-		"gender", "ssn", "hobby", "email", "phone", "username", "password",
-		"paragraph", "sentence", "phrase", "quote", "word",
-		"date", "second", "minute", "hour", "month", "day", "year",
-		"url", "domain", "ip", "int", "float", "unknown_field",
+		// Identifiers
+		"uuid", "ssn",
+
+		// Geographic
+		"city", "state", "country", "latitude", "longitude", "address", "street", "zip", "postal_code",
+		"timezone", "timezone_abbr", "timezone_full",
+
+		// Personal
+		"name", "name_prefix", "name_suffix", "first_name", "last_name", "gender", "hobby",
+
+		// Contact
+		"email", "phone",
+
+		// Authentication
+		"username", "password",
+
+		// Text Content
+		"paragraph", "sentence", "phrase", "quote", "word", "blurb", "comment", "question",
+		"interjection", "connective", "buzzword", "hipster_word", "hipster_sentence", "hipster_paragraph",
+		"lorem_ipsum_word", "lorem_ipsum_sentence", "lorem_ipsum_paragraph",
+
+		// Time & Date
+		"date", "datetime", "time", "second", "minute", "hour", "month", "day", "year", "weekday", "month_string",
+
+		// Web & Network
+		"url", "domain", "domain_name", "domain_suffix", "ip", "ipv4", "ipv6", "mac_address",
+		"http_method", "http_status_code", "http_status_simple", "user_agent", "chrome_user_agent",
+		"firefox_user_agent", "safari_user_agent", "opera_user_agent",
+
+		// Numbers
+		"int", "int8", "int16", "int32", "int64", "uint8", "uint16", "uint32", "uint64",
+		"float", "float32", "float64", "bool", "number", "int_n", "uint_n", "float32_range",
+		"float64_range", "digit", "digit_n", "letter", "letter_n", "vowel",
+
+		// Financial
+		"price", "currency", "currency_long", "currency_code", "credit_card", "credit_card_cvv",
+		"credit_card_exp", "credit_card_type", "cvv", "cvc", "expiry", "expiration",
+
+		// Banking
+		"bank_name", "bank_type", "ein", "ach_account", "ach_routing",
+
+		// Business
+		"company", "job_title", "job_descriptor", "job_level", "bs",
+
+		// Products
+		"product_name", "product_category", "product_description", "product_feature", "product_material",
+		"product_upc", "product_audience", "product_benefit", "product_dimension", "product_isbn",
+		"product_suffix", "product_use_case", "brand", "color", "hex_color", "rgb_color", "safe_color",
+
+		// Animals
+		"animal", "animal_type", "bird", "cat", "dog", "farm_animal", "pet_name",
+
+		// Food
+		"breakfast", "lunch", "dinner", "snack", "dessert", "drink", "fruit", "vegetable",
+
+		// Beer
+		"beer_name", "beer_style", "beer_hop", "beer_malt", "beer_yeast", "beer_alcohol", "beer_blg", "beer_ibu",
+
+		// Cars
+		"car_maker", "car_model", "car_type", "car_fuel_type", "car_transmission_type",
+
+		// Entertainment
+		"movie_name", "movie_genre", "book_title", "book_author", "book_genre",
+
+		// Music
+		"song", "song_artist", "song_genre", "song_name",
+
+		// Technology
+		"app_name", "app_author", "app_version",
+
+		// Cryptocurrency
+		"bitcoin_address", "bitcoin_private_key",
+
+		// Gaming
+		"gamertag",
+
+		// Minecraft
+		"minecraft_animal", "minecraft_armor_part", "minecraft_armor_tier", "minecraft_biome",
+		"minecraft_dye", "minecraft_food", "minecraft_mob_boss", "minecraft_mob_hostile",
+		"minecraft_mob_neutral", "minecraft_mob_passive", "minecraft_ore", "minecraft_tool",
+		"minecraft_villager_job", "minecraft_villager_level", "minecraft_villager_station",
+		"minecraft_weapon", "minecraft_weather", "minecraft_wood",
+
+		// Miscellaneous
+		"emoji", "emoji_alias", "emoji_category", "emoji_description", "emoji_tag", "slogan",
+		"flip_coin", "dice", "weight",
+
+		// Units
+		"unit",
+
+		// Unknown field test
+		"unknown_field",
 	}
 
 	for _, field := range expectedFields {
@@ -336,5 +640,94 @@ func TestData_ComplexNestedStructures(t *testing.T) {
 
 	if _, exists := company["employees"]; !exists {
 		t.Error("Expected 'employees' key not found in company")
+	}
+}
+
+func TestData_GenerateFieldCoverage(t *testing.T) {
+	// Test all possible field types to ensure 100% coverage
+	testCases := []string{
+		// Geography
+		"address", "street", "zip", "postal_code", "timezone", "timezone_abbr", "timezone_full",
+
+		// Time
+		"datetime", "time", "weekday", "month_string",
+
+		// Financial
+		"price", "currency", "currency_long", "currency_code", "credit_card", "credit_card_cvv",
+		"credit_card_exp", "credit_card_type", "cvv", "cvc", "expiry", "expiration",
+
+		// Banking
+		"bank_name", "bank_type", "ein", "ach_account", "ach_routing",
+
+		// Internet
+		"domain_name", "domain_suffix", "ipv4", "ipv6", "mac_address", "http_method",
+		"http_status_code", "http_status_simple", "user_agent", "chrome_user_agent",
+		"firefox_user_agent", "safari_user_agent", "opera_user_agent",
+
+		// Products
+		"product_name", "product_category", "product_description", "product_feature", "product_material",
+		"product_upc", "product_audience", "product_benefit", "product_dimension", "product_isbn",
+		"product_suffix", "product_use_case", "brand", "color", "hex_color", "rgb_color", "safe_color",
+
+		// Animals
+		"animal", "animal_type", "bird", "cat", "dog", "farm_animal", "pet_name",
+
+		// Food
+		"breakfast", "lunch", "dinner", "snack", "dessert", "drink", "fruit", "vegetable",
+
+		// Beer
+		"beer_name", "beer_style", "beer_hop", "beer_malt", "beer_yeast", "beer_alcohol", "beer_blg", "beer_ibu",
+
+		// Cars
+		"car_maker", "car_model", "car_type", "car_fuel_type", "car_transmission_type",
+
+		// Entertainment
+		"movie_name", "movie_genre", "book_title", "book_author", "book_genre",
+
+		// Music
+		"song", "song_artist", "song_genre", "song_name",
+
+		// Apps
+		"app_name", "app_author", "app_version",
+
+		// Numbers
+		"int", "int8", "int16", "int32", "int64", "uint8", "uint16", "uint32", "uint64",
+		"float", "float32", "float64", "bool", "number", "int_n", "uint_n", "float32_range",
+		"float64_range", "digit", "digit_n", "letter", "letter_n", "vowel",
+
+		// Crypto
+		"bitcoin_address", "bitcoin_private_key",
+
+		// Gaming
+		"gamertag",
+
+		// Minecraft
+		"minecraft_animal", "minecraft_armor_part", "minecraft_armor_tier", "minecraft_biome",
+		"minecraft_dye", "minecraft_food", "minecraft_mob_boss", "minecraft_mob_hostile",
+		"minecraft_mob_neutral", "minecraft_mob_passive", "minecraft_ore", "minecraft_tool",
+		"minecraft_villager_job", "minecraft_villager_level", "minecraft_villager_station",
+		"minecraft_weapon", "minecraft_weather", "minecraft_wood",
+
+		// Miscellaneous
+		"emoji", "emoji_alias", "emoji_category", "emoji_description", "emoji_tag", "slogan",
+		"blurb", "comment", "question", "interjection", "connective", "buzzword", "hipster_word",
+		"hipster_sentence", "hipster_paragraph", "hacker_phrase", "hacker_abbreviation", "hacker_adjective",
+		"hacker_noun", "hacker_verb", "hackering_verb", "lorem_ipsum_word", "lorem_ipsum_sentence",
+		"lorem_ipsum_paragraph", "flip_coin", "dice", "weight",
+
+		// Units
+		"unit",
+
+		// Business
+		"company", "job_title", "job_descriptor", "job_level", "bs",
+	}
+
+	for _, fieldType := range testCases {
+		t.Run(fieldType, func(t *testing.T) {
+			result := generateField(fieldType)
+			if result == nil {
+				t.Errorf("generateField(%s) returned nil", fieldType)
+			}
+		})
 	}
 }

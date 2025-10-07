@@ -5,7 +5,7 @@ import (
 	"net/http"
 	"strconv"
 
-	"github.com/brianvoe/gofakeit/v6"
+	"github.com/brianvoe/gofakeit/v7"
 	"github.com/paqstd-team/fake-cli/config"
 	"github.com/paqstd-team/fake-cli/handler"
 )
