@@ -32,8 +32,8 @@ To generate fake API responses, you must create a configuration file in JSON for
   "endpoints": [
     {
       "url": "/users",
-      "type": "GET", // default is GET if omitted
-      "cache": 5, // individual cache for this endpoint (5 requests)
+      "type": "GET",
+      "cache": 5,
       "response": [
         {
           "id": "uuid",
@@ -44,8 +44,7 @@ To generate fake API responses, you must create a configuration file in JSON for
     },
     {
       "url": "/products",
-      "cache": 10, // different cache size for this endpoint
-      // single object response when response is an object
+      "cache": 10,
       "response": {
         "id": "uuid",
         "name": "word",
@@ -54,7 +53,7 @@ To generate fake API responses, you must create a configuration file in JSON for
     },
     {
       "url": "/products/{id}",
-      "cache": 3, // smaller cache for individual product
+      "cache": 3,
       "response": {
         "id": "uuid",
         "tags": [{
@@ -71,7 +70,6 @@ To generate fake API responses, you must create a configuration file in JSON for
     },
     {
       "url": "/list",
-      // no cache field - this endpoint won't be cached
       "response": {
         "names": ["name", "name", "name"]
       }
@@ -79,13 +77,12 @@ To generate fake API responses, you must create a configuration file in JSON for
     {
       "url": "/submit",
       "type": "POST",
-      // POST endpoints typically don't need caching
       "response": {"status": "word"}
     },
     {
       "url": "/update/{id}",
       "type": "PATCH",
-      "cache": 1, // cache only 1 response for updates
+      "cache": 1,
       "response": {"updated": "word"}
     },
     {
@@ -101,7 +98,17 @@ To generate fake API responses, you must create a configuration file in JSON for
   ]
 }
 ```
-This configuration file defines several endpoints. The `/users` endpoint returns a list (top-level array in `response`) with pagination (by default `page=1` and `per_page=10`). The `/products` endpoint returns a single object (when `response` is an object). Endpoints may specify an HTTP method using `type` and support: `GET` (default), `POST`, `PATCH`, `PUT`, `DELETE`.
+**Configuration explanation:**
+- `/users` - Returns a list (top-level array in `response`) with pagination (by default `page=1` and `per_page=10`), cached for 5 requests
+- `/products` - Returns a single object (when `response` is an object), cached for 10 requests  
+- `/products/{id}` - Individual product endpoint, cached for 3 requests
+- `/list` - No caching, generates new data on every request
+- `/submit` - POST endpoint, typically doesn't need caching
+- `/update/{id}` - PATCH endpoint, cached for 1 request
+- `/replace/{id}` - PUT endpoint, no caching
+- `/remove/{id}` - DELETE endpoint, no caching
+
+Endpoints may specify an HTTP method using `type` and support: `GET` (default), `POST`, `PATCH`, `PUT`, `DELETE`.
 
 ## Caching
 
@@ -162,34 +169,53 @@ You can specify arrays or objects inside `response`. A top-level object means a 
 
 ### Type Usage Examples
 
+**User Profile Example:**
+- `id: "uuid"` - Unique identifier
+- `name: "name"` - Full name  
+- `email: "email"` - Email address
+- `phone: "phone"` - Phone number
+- `location.city: "city"` - City name
+- `location.country: "country"` - Country name
+- `created_at: "date"` - Creation date
+- `age: "int"` - Age as integer
+- `bio: "paragraph"` - Biography text
+
+**Product Example:**
+- `id: "uuid"` - Unique identifier
+- `title: "word"` - Product title
+- `description: "sentence"` - Product description
+- `price: "float"` - Price as decimal
+- `tags: ["word", "word"]` - Array of tags
+- `website: "url"` - Product website
+
 ```json
 {
   "endpoints": [
     {
       "url": "/user-profile",
       "response": {
-        "id": "uuid",           // Unique identifier
-        "name": "name",         // Full name
-        "email": "email",       // Email address
-        "phone": "phone",       // Phone number
+        "id": "uuid",
+        "name": "name",
+        "email": "email",
+        "phone": "phone",
         "location": {
-          "city": "city",       // City name
-          "country": "country"  // Country name
+          "city": "city",
+          "country": "country"
         },
-        "created_at": "date",   // Creation date
-        "age": "int",           // Age as integer
-        "bio": "paragraph"      // Biography text
+        "created_at": "date",
+        "age": "int",
+        "bio": "paragraph"
       }
     },
     {
       "url": "/product",
       "response": {
         "id": "uuid",
-        "title": "word",        // Product title
-        "description": "sentence", // Product description
-        "price": "float",       // Price as decimal
-        "tags": ["word", "word"], // Array of tags
-        "website": "url"        // Product website
+        "title": "word",
+        "description": "sentence",
+        "price": "float",
+        "tags": ["word", "word"],
+        "website": "url"
       }
     }
   ]
@@ -227,12 +253,12 @@ If you're upgrading from a version with global cache, here's how to migrate:
   "endpoints": [
     {
       "url": "/users",
-      "cache": 5,  // Move cache setting to each endpoint
+      "cache": 5,
       "response": {...}
     },
     {
       "url": "/products", 
-      "cache": 5,  // Apply same cache to all endpoints
+      "cache": 5,
       "response": {...}
     }
   ]
