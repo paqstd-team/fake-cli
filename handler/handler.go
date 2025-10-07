@@ -10,6 +10,10 @@ import (
 	"github.com/paqstd-team/fake-cli/config"
 )
 
+// JSONMarshal is used to marshal response data. It is a variable to allow tests
+// to inject failures and exercise error-handling branches.
+var JSONMarshal = json.Marshal
+
 func MakeHandler(config config.Config) http.Handler {
 	mux := mux.NewRouter()
 	cache := cache.NewCache(config.Cache)
@@ -41,7 +45,7 @@ func makeHandlerFunc(fields any, responseType string, cache *cache.Cache) http.H
 			data = generateData(fields)
 		}
 
-		jsonData, err := json.Marshal(data)
+		jsonData, err := JSONMarshal(data)
 		if err != nil {
 			http.Error(w, fmt.Sprintf("Error generating JSON: %v", err), http.StatusInternalServerError)
 			return

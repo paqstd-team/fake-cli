@@ -5,3 +5,6 @@
 fake-cli
 
 dist/
+
+coverage.out
+.DS_Store

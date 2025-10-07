@@ -21,3 +21,11 @@ run:
 
 # Define the default command as the build command
 default: build
+
+test:
+	TESTING=1 go test ./tests -covermode=atomic -coverpkg=./app,./cache,./config,./handler -coverprofile=coverage.out
+	@echo "\nCoverage by function/package:" && go tool cover -func=coverage.out | sed 's/^/  /'
+	@echo "\nUncovered code blocks (file:line1.col-line2.col [statements]):"
+	@awk 'NR>1 && $$3==0 {print "  " $$1 " [" $$2 "]"}' coverage.out | sort
+	@echo "Enforcing 100% coverage"
+	@go tool cover -func=coverage.out | awk '/total:/ { if ($$3 != "100.0%") { print; exit 1 } }'

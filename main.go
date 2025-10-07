@@ -3,19 +3,18 @@ package main
 import (
 	"flag"
 	"log"
-	"net/http"
 	"os"
 	"strconv"
 
-	"github.com/brianvoe/gofakeit/v6"
-	"github.com/paqstd-team/fake-cli/config"
-	"github.com/paqstd-team/fake-cli/handler"
+	"github.com/paqstd-team/fake-cli/app"
 )
 
 func main() {
-	// Seed the random number generator for reproducibility
-	gofakeit.Seed(0)
+	Main()
+}
 
+// Main is the exported entrypoint to allow external tests to exercise startup logic.
+func Main() {
 	// Define command-line flags
 	port := flag.Int("p", 8080, "port number")
 	configPath := flag.String("c", "config.json", "path to config file")
@@ -37,19 +36,18 @@ func main() {
 		*configPath = envConfig
 	}
 
-	config, err := config.LoadConfigFromFile(*configPath)
+	server, err := app.Run(*configPath, *port)
 	if err != nil {
-		log.Fatalf("Error loading config: %v", err)
+		log.Fatalf("Error starting server: %v", err)
 	}
 
-	server := &http.Server{
-		Addr:    ":" + strconv.Itoa(*port),
-		Handler: handler.MakeHandler(config),
+	// Allow tests to execute main without blocking
+	if os.Getenv("TESTING") == "1" {
+		return
 	}
 
-	log.Printf("Starting server on %v", server.Addr)
-	err = server.ListenAndServe()
-	if err != nil {
+	// Block in production run
+	if err := server.ListenAndServe(); err != nil {
 		log.Fatalf("Error starting server: %v", err)
 	}
 }
