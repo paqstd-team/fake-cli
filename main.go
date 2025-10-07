@@ -6,7 +6,7 @@ import (
 	"os"
 	"strconv"
 
-	"github.com/paqstd-team/fake-cli/v2/app"
+	"github.com/paqstd-team/fake-cli/app"
 )
 
 func main() {

@@ -7,8 +7,8 @@ import (
 	"net/http"
 
 	"github.com/gorilla/mux"
-	"github.com/paqstd-team/fake-cli/v2/cache"
-	"github.com/paqstd-team/fake-cli/v2/config"
+	"github.com/paqstd-team/fake-cli/cache"
+	"github.com/paqstd-team/fake-cli/config"
 )
 
 // JSONMarshal is used to marshal response data. It is a variable to allow tests

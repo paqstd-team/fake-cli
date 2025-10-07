@@ -1,4 +1,4 @@
-module github.com/paqstd-team/fake-cli/v2
+module github.com/paqstd-team/fake-cli
 
 go 1.25
 

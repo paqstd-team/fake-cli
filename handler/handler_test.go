@@ -9,7 +9,7 @@ import (
 	"strings"
 	"testing"
 
-	"github.com/paqstd-team/fake-cli/v2/config"
+	"github.com/paqstd-team/fake-cli/config"
 )
 
 func TestHandler_HTTPMethods(t *testing.T) {

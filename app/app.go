@@ -6,8 +6,8 @@ import (
 	"strconv"
 
 	"github.com/brianvoe/gofakeit/v7"
-	"github.com/paqstd-team/fake-cli/v2/config"
-	"github.com/paqstd-team/fake-cli/v2/handler"
+	"github.com/paqstd-team/fake-cli/config"
+	"github.com/paqstd-team/fake-cli/handler"
 )
 
 // Run constructs the HTTP server using the provided config path and port.

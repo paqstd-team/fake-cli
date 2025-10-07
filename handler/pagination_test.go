@@ -7,7 +7,7 @@ import (
 	"net/url"
 	"testing"
 
-	"github.com/paqstd-team/fake-cli/v2/config"
+	"github.com/paqstd-team/fake-cli/config"
 )
 
 func TestPagination_Parameters(t *testing.T) {
