@@ -6,7 +6,7 @@ import (
 	"net/http/httptest"
 	"testing"
 
-	"github.com/paqstd-team/fake-cli/config"
+	"github.com/paqstd-team/fake-cli/v2/config"
 )
 
 func TestData_GenerateFields(t *testing.T) {
